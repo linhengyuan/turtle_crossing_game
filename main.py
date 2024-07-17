@@ -1,6 +1,6 @@
 import time
 from turtle import Screen
-from player import Player
+from player import Player, Endline
 from car_manager import CarManager
 from scoreboard import Scoreboard
 
@@ -15,6 +15,10 @@ screen.listen()
 screen.onkey(player.move, "Up")
 
 car_manager = CarManager()
+scoreboard = Scoreboard()
+
+# end line
+end_line = Endline()
 
 game_is_on = True
 while game_is_on:
@@ -27,5 +31,14 @@ while game_is_on:
     # Detect collision with car
     for car in car_manager.all_cars:
         if car.distance(player) < 25:
-            print("GAME OVER")
+            scoreboard.game_over()
             game_is_on = False
+
+    # Detect you win
+    if player.distance(end_line) < 25:
+        player.go_to_start()
+        car_manager.level_up()
+        scoreboard.level_up()
+
+
+screen.exitonclick()  # keep the screen showing up

@@ -16,3 +16,14 @@ class Player(Turtle):
     # Only move up
     def move(self):
         self.forward(20)
+
+    def go_to_start(self):
+        self.goto(STARTING_POSITION)
+        self.setheading(90)
+
+class Endline(Turtle):
+    def __init__(self):
+        super().__init__()
+        self.penup()
+        self.goto(0, 300)
+        self.hideturtle()
